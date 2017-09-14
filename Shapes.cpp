@@ -47,6 +47,8 @@ double distanceOfVertexs(const vertex vertex_1, const vertex vertex_2) {
     distance = sqrt(((diff_X * diff_X) + (diff_Y * diff_Y)));
 
     return distance;
+    
+    
 }
 
 void sortByDecreasingPerimeter(std::vector<Shape *> & shapes) {
