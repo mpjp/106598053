@@ -1,15 +1,15 @@
-#INC_DIR = include
+INC_DIR = include
 
 all: exp
 
 exp: main.o
 ifeq (${OS}, Windows_NT)
-	g++ -o exp main.o -lgtest
+	g++ -o exp main.o  -lgtest
 else
-	g++ -o exp main.o -lgtest -pthread
+	g++ -o exp main.o  -lgtest -pthread
 endif
 
-main.o: main.cpp utPolygon.h
+main.o: main.cpp utsort.h
 	g++ -std=gnu++0x -c main.cpp
 
 clean:
