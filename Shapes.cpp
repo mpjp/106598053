@@ -1,6 +1,9 @@
 
 #include "include/Shapes.h"
+#include <list>
+#include <iterator>
 
+using namespace std;
 double sumOfArea(const std::vector<Shape *> & shapes) {
 
     double total =0;
@@ -49,117 +52,74 @@ double distanceOfVertexs(const vertex vertex_1, const vertex vertex_2) {
     return distance;
 }
 
-void sortByDecreasingPerimeter(std::vector<Shape *> & shapes) {
-    // use the shakeSort
-    int left = 0;
-    int right = shapes.size()-1;
-    int shift = 0;
-    Shape *temp;
 
-    while(left < right){
-        for(int i = left; i < right; i++) {
-            if(shapes[i]->perimeter() < shapes[i+1]->perimeter()){
-                temp = shapes[i];
-                shapes[i] = shapes[i+1];
-                shapes[i+1] = temp;
-                shift = i;
-            }
-        }
-        right = shift;
-        for(int i = right; i > left; i--){
-            if(shapes[i]->perimeter() > shapes[i-1]->perimeter()){
-                temp = shapes[i];
-                shapes[i] = shapes[i-1];
-                shapes[i-1] = temp;
-                shift = i;
-            }
-        }
-        left = shift;
-    }
+void Swap( std::list<Shape *>::iterator it, std::list<Shape *>::iterator it2){
+  Shape* a = *it;
+  *it = *it2;
+  *it2 = a;
 }
 
-void sortByIncreasingPerimeter(std::vector<Shape *> & shapes){
-    int left = 0;
-    int right = shapes.size()-1;
-    int shift = 0;
-    Shape *temp;
+std::list<Shape *>::iterator getElement( std::list<Shape *> *_list, int target ){
+  list<Shape *>::iterator it = _list->begin();
+  for( int i = 0; i < target ; i++ ) ++it;
+  return it;
+}
 
-    while(left < right){
-        for(int i = left; i < right; i++) {
-            if(shapes[i]->perimeter() > shapes[i+1]->perimeter()){
-                temp = shapes[i];
-                shapes[i] = shapes[i+1];
-                shapes[i+1] = temp;
-                shift = i;
-            }
-        }
-        right = shift;
-        for(int i = right; i > left; i--){
-            if(shapes[i]->perimeter() < shapes[i-1]->perimeter()){
-                temp = shapes[i];
-                shapes[i] = shapes[i-1];
-                shapes[i-1] = temp;
-                shift = i;
-            }
-        }
-        left = shift;
+
+
+
+//----------------------------------------------------------------------------
+
+
+void sortByDecreasingPerimeter(std::list<Shape *> * shapeList) {
+  for( int i = 0; i < shapeList->size(); i++ ){
+    for( int j = i ; j > 0 ; j-- ){
+      if( (*getElement( shapeList, j ))->perimeter() > (*getElement( shapeList, j-1 ))->perimeter() ) {
+          Swap( getElement( shapeList, j ), getElement( shapeList, j-1 ) );
+      }
     }
+  }
+}
+
+void sortByIncreasingPerimeter(std::list<Shape *> * shapeList){
+  for( int i = 0; i < shapeList->size(); i++ ){
+    for( int j = i ; j > 0 ; j-- ){
+      if( (*getElement( shapeList, j ))->perimeter() < (*getElement( shapeList, j-1 ))->perimeter() ) {
+          Swap( getElement( shapeList, j ), getElement( shapeList, j-1 ) );
+      }
+    }
+  }
+}
+
+void sortByIncreasingArea( std::list<Shape *> * shapeList) {
+  for( int i = 0; i < shapeList->size(); i++ ){
+    for( int j = i ; j > 0 ; j-- ){
+      if( (*getElement( shapeList, j ))->area() < (*getElement( shapeList, j-1 ))->area() ) {
+          Swap( getElement( shapeList, j ), getElement( shapeList, j-1 ) );
+      }
+    }
+  }
+}
+
+void sortByDecreasingArea( std::list<Shape *> * shapeList ) {
+  for( int i = 0; i < shapeList->size(); i++ ){
+    for( int j = i ; j > 0 ; j-- ){
+      if( (*getElement( shapeList, j ))->area() > (*getElement( shapeList, j-1 ))->area() ) {
+          Swap( getElement( shapeList, j ), getElement( shapeList, j-1 ) );
+      }
+    }
+  }
 
 }
 
-void sortByIncreasingArea( std::vector<Shape *> & shapes ) {
-    int left = 0;
-    int right = shapes.size()-1;
-    int shift = 0;
-    Shape *temp;
+void sortByIncreasingCompactness(std::list<Shape *> * shapeList){
 
-    while(left < right){
-        for(int i = left; i < right; i++) {
-            if(shapes[i]->area() > shapes[i+1]->area()){
-                temp = shapes[i];
-                shapes[i] = shapes[i+1];
-                shapes[i+1] = temp;
-                shift = i;
-            }
-        }
-        right = shift;
-        for(int i = right; i > left; i--){
-            if(shapes[i]->area() < shapes[i-1]->area()){
-                temp = shapes[i];
-                shapes[i] = shapes[i-1];
-                shapes[i-1] = temp;
-                shift = i;
-            }
-        }
-        left = shift;
+  for( int i = 0; i < shapeList->size(); i++ ){
+    for( int j = i ; j > 0 ; j-- ){
+      if( (*getElement( shapeList, j ))->compactness() < (*getElement( shapeList, j-1 ))->compactness() ) {
+          Swap( getElement( shapeList, j ), getElement( shapeList, j-1 ) );
+      }
     }
-}
-
-void sortByDecreasingArea( std::vector<Shape *> & shapes ) {
-    int left = 0;
-    int right = shapes.size()-1;
-    int shift = 0;
-    Shape *temp;
-
-    while(left < right){
-        for(int i = left; i < right; i++) {
-            if(shapes[i]->area() < shapes[i+1]->area()){
-                temp = shapes[i];
-                shapes[i] = shapes[i+1];
-                shapes[i+1] = temp;
-                shift = i;
-            }
-        }
-        right = shift;
-        for(int i = right; i > left; i--){
-            if(shapes[i]->area() > shapes[i-1]->area()){
-                temp = shapes[i];
-                shapes[i] = shapes[i-1];
-                shapes[i-1] = temp;
-                shift = i;
-            }
-        }
-        left = shift;
-    }
+  }
 
 }

@@ -8,15 +8,15 @@ ifeq (${OS}, Windows_NT)
 else
 	g++ -o hw1 main.o Shapes.o Media.o -lgtest -lpthread
 endif
-	
-main.o: utSort.h main.cpp
+
+main.o: utsort.h main.cpp
 	g++ -std=gnu++0x -c main.cpp
 Shapes.o: $(INC_DIR)/Shapes.h Shapes.cpp
 	g++ -std=gnu++0x -c Shapes.cpp
 Media.o: $(INC_DIR)/Media.h Media.cpp
 	g++ -std=gnu++0x -c Media.cpp
 
-clean:	
+clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
