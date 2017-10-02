@@ -22,4 +22,4 @@ ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
 	rm -f *.o hw2
-endif
+endif  #dsfs
