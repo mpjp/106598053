@@ -5,7 +5,6 @@
 #include <string>
 #include<iostream>
 using std::string;
-using namespace std;
 
 bool Atom::match( Atom& a ){
   return _symbol == a._symbol;

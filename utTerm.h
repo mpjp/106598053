@@ -6,8 +6,8 @@
 #include "number.h"
 #include "variable.h"
 #include<iostream>
-using namespace std;
-
+//using namespace std;
+using std::string;
 //test Number.value()
 TEST (Number,ctor) {
   Number number( 50 );

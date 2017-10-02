@@ -4,7 +4,8 @@
 
 #include<iostream>
 #include <string>
-using namespace std;
+//using namespace std;
+using std::string;
 
 string Variable::value(){
   return _value;

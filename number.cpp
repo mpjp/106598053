@@ -4,14 +4,15 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
+//using namespace std;
+using std::string;
+using std::to_string;
 // int Number::value(){
 //   return _num;
 // }
 
 string Number::value(){
-  return to_string(_num );
+  return std::to_string(_num );
 }
 
 // string Number::AAvalue(){
@@ -39,5 +40,5 @@ bool Number::match( Variable& var ){
 }
 
 bool Number::match( Number& compar ){  //***
-  return to_string(_num) == compar.value();
+  return std::to_string(_num) == compar.value();
 }
