@@ -12,7 +12,7 @@ string Number::value(){
 }
 
 string Number::symbol(){
-  return _symbol;
+  return  std::to_string(_num ); //_symbol;
 }
 
 bool Number::match( Atom& a ){
