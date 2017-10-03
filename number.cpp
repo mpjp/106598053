@@ -4,20 +4,12 @@
 #include <iostream>
 #include <string>
 
-//using namespace std;
-using std::string;
 using std::to_string;
-// int Number::value(){
-//   return _num;
-// }
+
 
 string Number::value(){
   return std::to_string(_num );
 }
-
-// string Number::AAvalue(){
-//   return to_string(_num );
-// }
 
 string Number::symbol(){
   return _symbol;
