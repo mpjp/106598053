@@ -14,7 +14,7 @@ bool Atom::match( Number& b ){
   return false;
 }
 
-bool Atom::match( Variable& var ){ 
+bool Atom::match( Variable& var ){  // tom = X
   if( var.getAssignable() ) {
     var.setAssignableFalse();
     var.setValue( _symbol );
