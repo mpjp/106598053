@@ -119,12 +119,13 @@ using namespace std;
 // TEST(ATOm, matchvar){
 //   Variable X("X");
 //   Atom tom( "tom" );
-//   cout << tom.match( X );
-//   Atom peter("peter");
-//   X.match( peter );
-//   cout << tom.match(X);
+//   ASSERT_TRUE(tom.match( X )); // tom = X
+//   // Atom peter("peter");
+//   // X.match( peter );
+//   ASSERT_TRUE(X.match( tom ));
+//   //cout << "\n" << tom.match(X);
 // }
-//
+// 
 // TEST(ATOm, matchNum){
 //   Number num1(3.555);
 //   Number num2(3.5555);
