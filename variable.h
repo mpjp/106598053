@@ -61,8 +61,8 @@ public:
         }
         else {
           mem_ptr->varassignbefore = true;
+          mem_setmemValue( var_p->symbol() ); //
           point_new_address( var_p );
-          //point_new_address_myself( var_p );
         }
       }
       // return true;
@@ -82,7 +82,6 @@ public:
     Member *temp = var_p->mem_ptr;
     var_p->mem_ptr = mem_ptr;
     //
-    mem_setmemValue( var_p->symbol() );
     if( symbol() != var_p->symbol() ) delete temp;
   }
 

@@ -14,6 +14,9 @@ public:
 
   //string value();
   string symbol() const {
+    if( _num == 1 ){
+      return std::to_string( (int)_num );
+    }
     return std::to_string( _num );
   }
 private:
