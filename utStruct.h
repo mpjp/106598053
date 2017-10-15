@@ -150,7 +150,7 @@ TEST(Struct, nested_struct3)
   std::vector<Term * > v2 = { &s2 };
   Struct s1( Atom("s1"), v2 );
   ASSERT_EQ( "s1(s2(X))", s1.symbol() );
-  ASSERT_EQ( "s1(s2(3.140000))", s1.value() );
+  ASSERT_EQ( "s1(s2(3.14))", s1.value() );
   // cout << s1.symbol();
   // cout << s1.value();
 

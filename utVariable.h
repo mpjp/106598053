@@ -109,6 +109,9 @@ using namespace std;
 //   X.match(Y);
 //   cout << X.value();
 //   cout << Y.value();
+//   //Y.match(num);
+//   Variable Z("Z");
+//   Y.match(Z);
 //   Y.match(num);
 //   cout << X.value();
 // }
@@ -143,7 +146,7 @@ TEST(Variable , numE_to_varX){
   Number num(2.7182);
   Variable X("X");
   X.match(num);
-  ASSERT_EQ( "2.718200", X.value() );
+  ASSERT_EQ( "2.7182", X.value() );
 }
 
 // ?- X=Y, X=1.

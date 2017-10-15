@@ -5,7 +5,8 @@
 #include<string>
 #include<iostream>
 
-using std::string;
+#include <sstream>
+
 
 class Number : public Term {
 public:
@@ -14,10 +15,10 @@ public:
 
   //string value();
   string symbol() const {
-    if( _num == 1 ){
-      return std::to_string( (int)_num );
-    }
-    return std::to_string( _num );
+   std::stringstream ss;
+   ss << _num;
+   return ss.str();
+    //return std::to_string( _num );
   }
 private:
   double _num;
