@@ -116,6 +116,23 @@ using namespace std;
 //   cout << X.value();
 // }
 
+// TEST(ATOm, matchvar){
+//   Variable X("X");
+//   Atom tom( "tom" );
+//   cout << tom.match( X );
+//   Atom peter("peter");
+//   X.match( peter );
+//   cout << tom.match(X);
+// }
+//
+// TEST(ATOm, matchNum){
+//   Number num1(3.555);
+//   Number num2(3.5555);
+//   Variable X("X");
+//   X.match( num2 );
+//   cout << num1.match( X );
+// }
+
 
 // //--------------------------
 TEST(Variable, constructor){
@@ -246,10 +263,11 @@ TEST (Variable, Struct2) {
   Variable X( "X" );
   Variable Y( "Y" );
   Atom teddy("teddy");
-  X.match( teddy );
+  // X.match( teddy );
   std::vector<Term *> v = { &X };
   Struct s( Atom("s"), v );
-  Y.match( s );
+  ASSERT_TRUE(X.match( teddy )); //
+  ASSERT_TRUE(Y.match( s ));
   ASSERT_EQ( "Y", Y.symbol() );
   ASSERT_EQ( "s(teddy)", Y.value() );
 }

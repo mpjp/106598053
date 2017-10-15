@@ -4,6 +4,7 @@
 #include <string>
 #include "term.h"
 
+
 using std::string;
 
 class Atom : public Term{
@@ -13,7 +14,7 @@ public:
   string symbol() const{
     return _symbol;
   }
-
+  
   string _symbol;
 };
 

@@ -1,15 +1,17 @@
 
 all: hw3
 
-hw3: MainVariable.o
+hw3: MainVariable.o Term.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw3 MainVariable.o -lgtest
+	g++ -o hw3 MainVariable.o Term.o -lgtest
 else
-	g++ -o hw3 MainVariable.o -lgtest -lpthread
+	g++ -o hw3 MainVariable.o Term.o -lgtest -lpthread
 endif
 
 MainVariable.o: MainVariable.cpp utVariable.h
 		g++ -std=gnu++0x -c MainVariable.cpp
+Term.o: Term.cpp term.h
+		g++ -std=gnu++0x -c Term.cpp
 
 # Atom.o: Atom.cpp atom.h
 # 		g++ -std=gnu++0x -c Atom.cpp

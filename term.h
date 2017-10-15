@@ -4,7 +4,7 @@
 #include <string>
 
 using std::string;
-
+// #include "variable.h"
 
 class Term{
 
@@ -15,9 +15,11 @@ public:
     return symbol();
   };
 
-  virtual bool match(Term & term) {
-    return symbol() == term.symbol();
-  }
+  // virtual bool match(Term & term) {
+  //   return symbol() == term.symbol();
+  // }
+
+  virtual bool match(Term & term) ;
 
 
 };
