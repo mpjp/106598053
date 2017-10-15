@@ -102,9 +102,20 @@ using namespace std;
 //   cout << R.value();
 // }
 
+// TEST(Variable, dddd) {
+//   Variable X("X");
+//   Variable Y("Y");
+//   Number num(1);
+//   X.match(Y);
+//   cout << X.value();
+//   cout << Y.value();
+//   Y.match(num);
+//   cout << X.value();
+// }
+
 
 // //--------------------------
-TEST(Variable, constructor){  
+TEST(Variable, constructor){
   Variable X("X");
   ASSERT_EQ("X", X._symbol);
 }
@@ -112,7 +123,8 @@ TEST(Variable, constructor){
 TEST(Variable , matching){
   Atom tom("tom");
   Variable X("X");
-  X.match(tom);
+  ASSERT_TRUE(X.match(tom));
+  //ASSERT_TRUE(X.match(tom));
   ASSERT_EQ( "tom", X.value());
 }
 

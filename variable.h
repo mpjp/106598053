@@ -62,12 +62,15 @@ public:
         else {
           mem_ptr->varassignbefore = true;
           point_new_address( var_p );
+          //point_new_address_myself( var_p );
         }
       }
       // return true;
     }
     else { // atom , num, struct
-      if( mem_assignable() == false ) return false;
+      if( mem_assignable() == false ) {
+        if( value() != term.value() ) return false;
+      }
       // Struct * stru_p = dynamic_cast<Struct *>(&term);
       mem_setmemValue( term.value() );
       mem_setassignableFalse();
@@ -78,6 +81,8 @@ public:
   void point_new_address( Variable * var_p ){
     Member *temp = var_p->mem_ptr;
     var_p->mem_ptr = mem_ptr;
+    //
+    mem_setmemValue( var_p->symbol() );
     if( symbol() != var_p->symbol() ) delete temp;
   }
 
