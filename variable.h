@@ -61,7 +61,7 @@ public:
         }
         else {
           mem_ptr->varassignbefore = true;
-          mem_setmemValue( var_p->symbol() ); //
+          mem_setmemValue( var_p->value() ); //->symbol()
           point_new_address( var_p );
         }
       }
