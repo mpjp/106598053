@@ -125,13 +125,34 @@ using namespace std;
 //   ASSERT_TRUE(X.match( tom ));
 //   //cout << "\n" << tom.match(X);
 // }
-// 
+//
 // TEST(ATOm, matchNum){
 //   Number num1(3.555);
 //   Number num2(3.5555);
 //   Variable X("X");
 //   X.match( num2 );
 //   cout << num1.match( X );
+// }
+
+// TEST( Variable, mathlooooot ){
+//   Variable X("X");
+//   Variable Y("Y");
+//   Variable Z("Z");
+//   Variable W("W");
+//   Variable D("D");
+//   Atom tom("tom");
+//
+//   X.match(Y);
+//   cout << "@X = " <<  X.value();
+//   Z.match(W);
+//   cout << "@Z = " <<  Z.value();
+//   W.match(Y);
+//   Y.match(W);
+//   cout << "@W = " <<  W.value();
+//   Y.match( tom );
+//    cout << "\n\n@X = " <<  X.value();
+//    cout << "@Y= " <<   Y.value();
+//   cout << "@Z = " <<  Z.value();
 // }
 
 
@@ -264,11 +285,11 @@ TEST (Variable, Struct2) {
   Variable X( "X" );
   Variable Y( "Y" );
   Atom teddy("teddy");
-  // X.match( teddy );
+  X.match( teddy );
   std::vector<Term *> v = { &X };
   Struct s( Atom("s"), v );
-  ASSERT_TRUE(X.match( teddy )); //
-  ASSERT_TRUE(Y.match( s ));
+  Y.match( s );      // Y = s(X)
+  //X.match( teddy );  // X= teddy
   ASSERT_EQ( "Y", Y.symbol() );
   ASSERT_EQ( "s(teddy)", Y.value() );
 }
