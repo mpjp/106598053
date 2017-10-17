@@ -47,10 +47,14 @@ public:
 
 class Variable : public Term{
 public:
-  Variable(string s):_symbol(s){}
+  Variable(string s):_symbol(s){
+    isStruct = false;
+  }
 
   string const _symbol;
   Member *mem_ptr = new Member( _symbol );
+  Struct* stru_p;
+  bool isStruct ;
 
   bool match( Term &term ) {
 
@@ -106,8 +110,13 @@ public:
       if( mem_assignable() == false ) {
         if( value() != term.value() ) return false;
       }
-      // Struct * stru_p = dynamic_cast<Struct *>(&term);
-      mem_setmemValue( term.value() );
+      Struct * is_stru_p = dynamic_cast<Struct *>(&term);
+      if( is_stru_p) {
+        stru_p = is_stru_p;
+        isStruct = true;
+        //cout << "stru = " << stru_p->value();
+      }
+      else mem_setmemValue( term.value() );
       mem_setassignableFalse();
     }
     return true;
@@ -143,6 +152,7 @@ public:
   }
 
   string value() const {
+    if(isStruct == true) return stru_p->value();
     return mem_ptr->getmemValue();
   }
 

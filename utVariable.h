@@ -285,11 +285,11 @@ TEST (Variable, Struct2) {
   Variable X( "X" );
   Variable Y( "Y" );
   Atom teddy("teddy");
-  X.match( teddy );
+  //X.match( teddy );
   std::vector<Term *> v = { &X };
   Struct s( Atom("s"), v );
   Y.match( s );      // Y = s(X)
-  //X.match( teddy );  // X= teddy
+  X.match( teddy );  // X= teddy
   ASSERT_EQ( "Y", Y.symbol() );
   ASSERT_EQ( "s(teddy)", Y.value() );
 }
