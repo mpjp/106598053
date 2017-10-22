@@ -18,7 +18,7 @@ using namespace std;
 TEST (List, constructor) {
   vector<Term *> args = {};
   List list(args);
-  EXPECT_EQ( "[]", list.symbol() );
+  EXPECT_EQ( "[!]", list.symbol() );
 }
 
 // Given there are two perfect numbers: 8128
@@ -179,10 +179,6 @@ TEST(List, headAndTailMatching1) {
   Atom f("first"), s("second"), t("third");
   vector<Term *> args = {&f, &s, &t};
   List l(args);
-  // // cout << l.head()->symbol();
-  // cout << l.head()->symbol();
-  // cout << l.tail()->head()->value();
-  // cout << l.tail()->head()->value();
   EXPECT_EQ(string("first"), l.head()->symbol());
   EXPECT_EQ(string("[second, third]"), l.tail()->value());
 }
@@ -241,10 +237,6 @@ TEST (List, emptyExecptionOfHead) {
   catch(std::out_of_range const & err) {
       EXPECT_EQ(err.what(),std::string("Accessing head in an empty list"));
   }
-  // catch(const & err) {
-  //   EXPECT_EQ(err.what(), std::string("Accessing head in an empty list"));
-  // }
-
 }
 
 // Given there is a empty list
@@ -259,8 +251,6 @@ TEST (List, emptyExecptionOfTail) {
   catch(std::out_of_range const & err) {
       EXPECT_EQ(err.what(),std::string("Accessing tail in an empty list"));
   }
-  // catch(...) {
-  // }
 }
 
 
