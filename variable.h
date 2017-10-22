@@ -61,13 +61,9 @@ public:
       }
       else if( getassignable() == false ) {  // X already assign, var point to myself
         get_all_pointer_change( var_p->mem_ptr->mem_v, this, true );
-        //var_p->mem_ptr = mem_ptr;
-        //var_p->setassignableFalse();
       }
       else if( var_p->getassignable() == false ) { // myself point to var address
-        //mem_ptr = var_p->mem_ptr;
         get_all_pointer_change( mem_ptr->mem_v, var_p , true );
-        //setassignableFalse();
       }
       else {  // all not assign before
 
@@ -75,17 +71,6 @@ public:
           if( check_var_var_assign_before( var_p->mem_ptr ) ) return true;
           int size = (mem_ptr->mem_v).size();  //X , Y
           get_all_pointer_change( mem_ptr->mem_v, var_p, false );
-
-          // std::vector<Variable*> temp_v = mem_ptr->mem_v; // you Z,W
-          // for(vector<Variable*>::iterator iter = temp_v.begin(); iter != temp_v.end(); ++iter){
-          //   cout << (*iter)->symbol() << ", addr = " << (*iter)->mem_ptr << " " ;
-          //   var_p->mem_ptr->addVariable( *iter );
-          //   (*iter)->mem_ptr = var_p->mem_ptr;
-          //   //(*iter)->mem_ptr->setmemValue( var_p->mem_ptr->gerTermptr() );
-          // }
-          // //cout << "\n value = " << var_p->mem_ptr->memValue << "\n";
-
-
         }  // if all assign Variable before
         //******************************************
 
@@ -96,28 +81,11 @@ public:
           mem_ptr->addVariable( var_p );
         }
         else {
-          //if( !var_p->varassignbefore ) var_p->mem_ptr->addVariable( this );
           mem_ptr = var_p->mem_ptr;
           var_p->varassignbefore = true;
           varassignbefore = true;
           var_p->mem_ptr->addVariable( this );
         }
-
-
-        // if( var_p->mem_ptr->varassignbefore ) {
-        //   mem_ptr->setmemValue( var_p );
-        //   //point_new_address_myself( var_p );
-        // }
-        // else { // X=Y
-        //   mem_ptr->varassignbefore = true;
-        //   //mem_setmemValue( var_p ); //->symbol()  important //var_p->value()
-        //   mem_ptr->setmemValue( var_p );
-        //   //point_new_address( var_p );
-        //   //***
-        //   mem_ptr->addVariable( this ); // X = Y
-        //   mem_ptr->addVariable( var_p );
-        //
-        // }
       }
       // return true;
     }
