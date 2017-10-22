@@ -1,17 +1,27 @@
 
-all: hw3
+# all: hw3
+#
+# hw3: MainVariable.o Term.o
+# ifeq (${OS}, Windows_NT)
+# 	g++ -o hw3 MainVariable.o Term.o -lgtest
+# else
+# 	g++ -o hw3 MainVariable.o Term.o -lgtest -lpthread
+# endif
+all: hw4
 
-hw3: MainVariable.o Term.o
+hw4: MainList.o Term.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw3 MainVariable.o Term.o -lgtest
+	g++ -o hw4 MainList.o Term.o -lgtest
 else
-	g++ -o hw3 MainVariable.o Term.o -lgtest -lpthread
+	g++ -o hw4 MainList.o Term.o -lgtest -lpthread
 endif
 
-MainVariable.o: MainVariable.cpp utVariable.h
-		g++ -std=gnu++0x -c MainVariable.cpp
+# MainVariable.o: MainVariable.cpp utVariable.h
+# 		g++ -std=gnu++0x -c MainVariable.cpp
 Term.o: Term.cpp term.h
 		g++ -std=gnu++0x -c Term.cpp
+MainList.o: MainList.cpp utList.h
+		g++ -std=gnu++0x -c MainList.cpp
 
 # Atom.o: Atom.cpp atom.h
 # 		g++ -std=gnu++0x -c Atom.cpp
@@ -24,7 +34,7 @@ clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o hw3
+	rm -f *.o hw4
 endif  #
 
 

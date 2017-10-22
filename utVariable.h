@@ -134,59 +134,61 @@ using namespace std;
 //   cout << num1.match( X );
 // }
 
-// TEST( Variable, mathlooooot ){
+TEST( Variable, mathlooooot ){  // X = Y , Y = tom, W = Z, Y = Z
+  Variable X("X");
+  Variable Y("Y");
+  Variable Z("Z");
+  Variable W("W");
+  Variable D("D");
+  Variable K("K");
+  Atom tom("tom");
+  ASSERT_EQ( "X", X.value() );
+  X.match(Y);
+  ASSERT_EQ( "Y", X.value() );
+  Y.match( tom );
+  ASSERT_EQ( "tom", X.value() );
+  W.match( Z );
+  ASSERT_EQ( "Z", W.value() );
+  Y.match(Z);
+  ASSERT_EQ( "tom", X.value() );
+  ASSERT_EQ( "tom", Y.value() );
+  ASSERT_EQ( "tom", W.value() );
+  ASSERT_EQ( "tom", Z.value() );
+}
+
+TEST(Variable , circular){  // X=Y, W=Z,Y= W, Y = tom
+  Variable X("X");
+  Variable Y("Y");
+  Variable W("W");
+  Variable Z("Z");
+  Atom tom("tom");
+  Y.match( tom );
+
+
+}
+
+// TEST( Stru, var ){
 //   Variable X("X");
 //   Variable Y("Y");
-//   Variable Z("Z");
-//   Variable W("W");
 //   Variable D("D");
+//   cout << X.value() << " " << Y.value() ;
+//   std::vector<Term*> v = {&X, &Y};
+//   Struct Stru( Atom("Str"), v );
+//   cout << "Stru sym = " << Stru.symbol() << ", Stru value = " << Stru.value() << "\n";
+//   Variable S("S");
+//   S.match( Stru );
+//   cout << "S sym = " << S.symbol() << ", S value = " << S.value() ;
 //   Atom tom("tom");
-//
-//   X.match(Y);
-//   cout << "@X = " <<  X.value();
-//   Z.match(W);
-//   cout << "@Z = " <<  Z.value();
-//   W.match(Y);
-//   Y.match(W);
-//   cout << "@W = " <<  W.value();
+//   X.match(tom);
+//   cout << "X.value()  = " <<  X.value() << " ," << Y.value() << "\n" ;
+//   cout << "S sym = " << S.symbol() << ", S value = " << S.value() ;
+//   D.match( S );
+//   cout << "D sym = " << D.symbol() << ", D value = " << D.value() ;
 //   Y.match( tom );
-//    cout << "\n\n@X = " <<  X.value();
-//    cout << "@Y= " <<   Y.value();
-//   cout << "@Z = " <<  Z.value();
+//   cout << "D sym = " << D.symbol() << ", D value = " << D.value() ;
 // }
 
-
-// //--------------------------
-TEST(Variable, constructor){
-  Variable X("X");
-  ASSERT_EQ("X", X._symbol);
-}
-
-TEST(Variable , matching){
-  Atom tom("tom");
-  Variable X("X");
-  ASSERT_TRUE(X.match(tom));
-  //ASSERT_TRUE(X.match(tom));
-  ASSERT_EQ( "tom", X.value());
-}
-
-TEST (Variable , haveValue){
-  Atom tom ("tom");
-  Atom jerry ("jerry");
-  Variable X("X");
-
-  ASSERT_TRUE(X.match(tom));
-  ASSERT_FALSE(X.match(jerry));
-}
-
-// ?- X=2.7182.
-// X=2.7182
-TEST(Variable , numE_to_varX){
-  Number num(2.7182);
-  Variable X("X");
-  X.match(num);
-  ASSERT_EQ( "2.7182", X.value() );
-}
+//
 
 // ?- X=Y, X=1.
 // Y=1
@@ -198,7 +200,7 @@ TEST (Variable, varY_to_varX_and_num1_to_varX) {
   ASSERT_TRUE( X.match(num));
   ASSERT_EQ( "1", Y.value() );
 }
-
+//
 // ?- X=Y, Y=1.
 // X=1
 TEST (Variable, varY_to_varX_and_num1_to_varY) {
@@ -260,16 +262,18 @@ TEST (Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
   ASSERT_EQ( "1", Z.value() );
 }
 
+
 // Give there is a Struct s contains Variable X
 // And another Variable Y
 // When Y matches Struct s
 // Then #symbol() of Y should return "Y"
 // And #value() of Y should return "s(X)"
+
 TEST (Variable, Struct1) {
   Variable X("X");
   Variable Y("Y");
   std::vector<Term *> v = {&X};
-  Struct s( Atom("s"), v );
+ Struct s( Atom("s"), v );
   Y.match( s );
   ASSERT_EQ( "Y", Y.symbol());
   ASSERT_EQ( "s(X)", Y.value() );
