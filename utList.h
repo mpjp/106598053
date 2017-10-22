@@ -18,7 +18,6 @@ using namespace std;
 TEST (List, constructor) {
   vector<Term *> args = {};
   List list(args);
-  // cout << list.symbol();
   EXPECT_EQ( "[]", list.symbol() );
 }
 
@@ -239,7 +238,8 @@ TEST (List, emptyExecptionOfHead) {
     List list( v );
     list.head();
   }
-  catch(...) {
+  catch(std::out_of_range const & err) {
+      EXPECT_EQ(err.what(),std::string("Accessing head in an empty list"));
   }
   // catch(const & err) {
   //   EXPECT_EQ(err.what(), std::string("Accessing head in an empty list"));
@@ -256,8 +256,11 @@ TEST (List, emptyExecptionOfTail) {
     List list( v );
     list.tail();
   }
-  catch(...) {
+  catch(std::out_of_range const & err) {
+      EXPECT_EQ(err.what(),std::string("Accessing tail in an empty list"));
   }
+  // catch(...) {
+  // }
 }
 
 
