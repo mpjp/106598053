@@ -18,7 +18,7 @@ using namespace std;
 TEST (List, constructor) {
   vector<Term *> args = {};
   List list(args);
-  EXPECT_EQ( "[!]", list.symbol() );
+  EXPECT_EQ( "[]", list.symbol() );
 }
 
 // Given there are two perfect numbers: 8128
