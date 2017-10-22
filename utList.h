@@ -26,9 +26,10 @@ TEST (List, constructor) {
 // Then #symbol() of the list should return "[8128]"
 TEST(List, Numbers) {
  Number num(8128);
- vector<Term *> args = {&num};
+ Number num496(496);
+ vector<Term *> args = {&num, &num496};
  List l(args);
- EXPECT_EQ( "[8128]", l.symbol() );
+ EXPECT_EQ( "[8128, 496]", l.symbol() );
 }
 
 // Given there are two atoms: "terence_tao", "alan_mathison_turing"
