@@ -1,12 +1,3 @@
-
-# all: hw3
-#
-# hw3: MainVariable.o Term.o
-# ifeq (${OS}, Windows_NT)
-# 	g++ -o hw3 MainVariable.o Term.o -lgtest
-# else
-# 	g++ -o hw3 MainVariable.o Term.o -lgtest -lpthread
-# endif
 all: hw4
 
 hw4: MainList.o Term.o
@@ -16,19 +7,10 @@ else
 	g++ -o hw4 MainList.o Term.o -lgtest -lpthread
 endif
 
-# MainVariable.o: MainVariable.cpp utVariable.h
-# 		g++ -std=gnu++0x -c MainVariable.cpp
 Term.o: Term.cpp term.h
 		g++ -std=gnu++0x -c Term.cpp
 MainList.o: MainList.cpp utList.h
 		g++ -std=gnu++0x -c MainList.cpp
-
-# Atom.o: Atom.cpp atom.h
-# 		g++ -std=gnu++0x -c Atom.cpp
-# Variable.o: Variable.cpp variable.h
-# 		g++ -std=gnu++0x -c Variable.cpp
-# Number.o: Number.cpp number.h  #atom.h
-# 		g++ -std=gnu++0x -c Number.cpp
 
 clean:
 ifeq (${OS}, Windows_NT)

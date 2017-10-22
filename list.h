@@ -17,19 +17,19 @@ public:
   Term * head() {
     try {
       if( _elements.size() <= 0 )
-        throw "Accessing head in an empty list";//"Accessing head in an empty list";
+        throw "Accessing head in an empty list";
       else
         return _elements[0];
     }
     catch (const char* message) {
-      //std::cout << message << std::endl;
+      std::cout << message << std::endl;
     }
   } // head()
 
   List * tail() {
     try{
       if( _elements.size() <= 0 )
-        throw std::invalid_argument("Accessing tail in an empty list");
+        throw "Accessing tail in an empty list"; // std::invalid_argument
       else {
         std::vector<Term*> v;
         for (std::vector<Term*>::iterator it = _elements.begin()+1 ; it != _elements.end(); ++it)
