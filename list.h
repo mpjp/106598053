@@ -17,7 +17,7 @@ public:
   Term * head() {
     try {
       if( _elements.size() <= 0 )  //throw "Accessing head in an empty list";
-        throw std::out_of_range("Accessing head in an empty list");
+        throw "Accessing head in an empty list";
       else
         return _elements[0];
     }
@@ -29,7 +29,7 @@ public:
   List * tail() {
     try{
       if( _elements.size() <= 0 )
-        throw std::out_of_range("Accessing tail in an empty list"); // std::invalid_argument
+        throw "Accessing tail in an empty list"; // std::invalid_argument
       else {
         std::vector<Term*> v;
         for (std::vector<Term*>::iterator it = _elements.begin()+1 ; it != _elements.end(); ++it)
