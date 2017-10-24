@@ -18,7 +18,7 @@ ifeq (${OS}, Windows_NT)
 else
 	rm -f *.o hw4
 endif
-#
+##
 #
 # all: madRace utAtom utVariable utScanner
 #
