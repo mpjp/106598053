@@ -8,14 +8,16 @@ else
 endif
 
 Atom.o: Atom.cpp atom.h variable.h
-	g++ -std=c++11 -c Atom.cpp
+	g++ -std=gnu++0x -c Atom.cpp
 MainList.o: MainList.cpp utList.h atom.h
-	g++ -std=c++11 -c MainList.cpp
+	g++ -std=gnu++0x -c MainList.cpp
 
 clean:
+ifeq (${OS}, Windows_NT)
+	del *.o *.exe
+else
 	rm -f *.o hw4
-stat:
-	wc *.h *.cpp
+endif
 #
 #
 # all: madRace utAtom utVariable utScanner
