@@ -7,7 +7,7 @@
 // using std::vector;
 using std::string;
 #include "variable.h"
-#include "atom.h"
+//#include "atom.h"
 using namespace std;
 #include <stdexcept>
 

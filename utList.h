@@ -5,7 +5,7 @@
 using std::string;
 
 #include "list.h"
-#include "atom.h"
+// #include "atom.h"
 #include "struct.h"
 // #include "atom.h"
 // #include "number.h"
