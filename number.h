@@ -5,8 +5,7 @@
 #include<string>
 #include<iostream>
 
-#include <sstream>
-
+using std::string;
 
 class Number : public Term {
 public:
@@ -15,10 +14,7 @@ public:
 
   //string value();
   string symbol() const {
-   std::stringstream ss;
-   ss << _num;
-   return ss.str();
-    //return std::to_string( _num );
+    return std::to_string( _num );
   }
 private:
   double _num;

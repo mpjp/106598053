@@ -1,12 +1,13 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include "term.h"
+// #include "term.h"
 #include <string>
 #include <vector>
 // using std::vector;
 using std::string;
 #include "variable.h"
+#include "atom.h"
 using namespace std;
 #include <stdexcept>
 
@@ -85,7 +86,7 @@ public:
           Variable * vv_p = dynamic_cast<Variable *>(list_p->_elements[i]);
           // cout << "is var!" << i;
           if( !v_p && !vv_p ) return false;
-          v_p->match( *(list_p->_elements[i]) ); 
+          v_p->match( *(list_p->_elements[i]) );
         } // if
       return true;
     }
