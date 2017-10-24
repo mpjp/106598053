@@ -5,11 +5,7 @@
 using std::string;
 
 #include "list.h"
-// #include "atom.h"
 #include "struct.h"
-// #include "atom.h"
-// #include "number.h"
-// #include "variable.h"
 #include <stdexcept>
 #include<iostream>
 using namespace std;
