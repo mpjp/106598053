@@ -102,9 +102,8 @@ TEST(List, matchToVarShouldSucceed) {
   Atom t("terence_tao");
   std::vector<Term*> vv = {&num,&X,&t};
   List list(vv);
-  ASSERT_TRUE( list.match(Y) );
-  //ASSERT_TRUE( Y.match(list) );
-  //EXPECT_EQ( "[496, X, terence_tao]", Y.value() );
+  ASSERT_TRUE( Y.match(list) );
+  EXPECT_EQ( "[496, X, terence_tao]", Y.value() );
 }
 
 // ?- X = [496, X, terence_tao].
