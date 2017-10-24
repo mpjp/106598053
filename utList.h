@@ -162,6 +162,7 @@ TEST(List, matchToVarToAtominListShouldSucceed) {
   List list2( vv );
   ASSERT_TRUE( list.match( list2 ) );
   EXPECT_EQ( "8128", X.value() );
+
 }
 
 // ?- Y = [496, X, terence_tao], X = alan_mathison_turing.

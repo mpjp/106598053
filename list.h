@@ -85,7 +85,8 @@ public:
           Variable * vv_p = dynamic_cast<Variable *>(list_p->_elements[i]);
           // cout << "is var!" << i;
           if( !v_p && !vv_p ) return false;
-          v_p->match( *(list_p->_elements[i]) );
+          if( (v_p && vv_p) || v_p ) v_p->match( *(list_p->_elements[i]) );
+          else if( vv_p ) vv_p->match( *( _elements[i]) );
         } // if
       return true;
     }
