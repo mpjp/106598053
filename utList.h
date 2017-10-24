@@ -1,14 +1,23 @@
 #ifndef UTLIST_H
 #define UTLIST_H
-#include <vector>
+// #include <vector>
 #include <string>
 using std::string;
 
+// #include "number.h"
+// #include "list.h"
+// #include "struct.h"
+
+// #include <stdexcept>
+// #include<iostream>
+// using namespace std;
+
+// //--------------
 #include "list.h"
 #include "struct.h"
-#include <stdexcept>
-#include<iostream>
-using namespace std;
+#include "atom.h"
+#include "number.h"
+#include "variable.h"
 
 // When create a new list without any item
 // Then #symbol() of the list should return "[]"

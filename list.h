@@ -1,14 +1,13 @@
 #ifndef LIST_H
 #define LIST_H
 
-// #include "term.h"
 #include <string>
 #include <vector>
-// using std::vector;
 using std::string;
+#include "term.h"
 #include "variable.h"
-//#include "atom.h"
-using namespace std;
+// using namespace std;
+using std::vector;
 #include <stdexcept>
 
 class List : public Term {
