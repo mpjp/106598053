@@ -26,9 +26,9 @@ public:
       }
       else {
         vector<Term*> terms = getArgs();
-        if(_currentToken == ']')
+        if(_currentToken == ']') //[)
           return new List(terms);
-        else throw "unexpected token";
+        else throw std::string("unexpected token");
       } // else
     }  // if list
     else if(token == VAR){
