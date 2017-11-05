@@ -1,11 +1,3 @@
-# all: hw4
-#
-# hw4: MainList.o Atom.o
-# ifeq (${OS}, Windows_NT)
-# 	g++ -o hw4 MainList.o Atom.o -lgtest
-# else
-# 	g++ -o hw4 MainList.o Atom.o -lgtest -lpthread
-# endif
 all: hw5
 
 hw5: MainParser.o Atom.o

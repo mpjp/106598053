@@ -195,7 +195,12 @@ TEST_F(ParserTest, illegal1) {
 TEST_F(ParserTest, ListAsStruct) {
   Scanner scanner( ".(1,[])" );
   Parser parser(scanner);
-  ASSERT_EQ( ".(1, [])", parser.createTerm()->symbol());
+  Term* term = parser.createTerm();
+  ASSERT_EQ( ".(1, [])", term->symbol());
+  Struct * ps = dynamic_cast<Struct *>(term);
+  ASSERT_EQ( 2, ps->arity() );
+  ASSERT_EQ( "1", ps->args(0)->symbol());
+  ASSERT_EQ( "[]", ps->args(1)->symbol());
 
 }
 
@@ -209,7 +214,12 @@ TEST_F(ParserTest, ListAsStruct) {
 TEST_F(ParserTest, ListAsStruct2) {
   Scanner scanner( ".(2,.(1,[]))" );
   Parser parser(scanner);
-  ASSERT_EQ( ".(2, .(1, []))", parser.createTerm()->symbol());
+  Term *term = parser.createTerm();
+  ASSERT_EQ( ".(2, .(1, []))", term->symbol());
+  Struct * ps = dynamic_cast<Struct *>(term);
+  ASSERT_EQ( 2, ps->arity() );
+  ASSERT_EQ( "2", ps->args(0)->symbol());
+  ASSERT_EQ( ".(1, [])", ps->args(1)->symbol());
 }
 
 

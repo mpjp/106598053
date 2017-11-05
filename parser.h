@@ -39,6 +39,7 @@ public:
         Atom* atom = new Atom(symtable[_scanner.tokenValue()].first);
         if( _scanner.currentChar() == '(') {
           _scanner.nextToken() ;
+          _scanner.skipLeadingWhiteSpace();
           if( _scanner.currentChar() == ')' ){
             _scanner.nextToken() ;
             vector<Term*> terms = {};
@@ -53,9 +54,7 @@ public:
         else
           return atom;
     }
-
-    //else if( token == ')') cout << "#)";//****2
-    return nullptr;   //s(a())
+    return nullptr;
   }
 
   vector<Term*> getArgs()
