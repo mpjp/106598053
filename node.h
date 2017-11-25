@@ -25,7 +25,7 @@ public:
     if( node->right ) getAllnodes( node->right );
   }
 
-  void isStruct( Struct* str, Variable* var ) {
+  void isStructFindVariableContentMatch( Struct* str, Variable* var ) {
     for( int i = 0; i < str->arity(); i++ ){
       Variable * isVarInStr = dynamic_cast<Variable *>(str->args(i));
       Struct * isStrInStr = dynamic_cast<Struct *>(str->args(i));
@@ -33,29 +33,29 @@ public:
         if ( isVarInStr->symbol() == var->symbol() )
           var->match( *isVarInStr );
       }
-      if( isStrInStr ) isStruct( isStrInStr, var );
+      if( isStrInStr ) isStructFindVariableContentMatch( isStrInStr, var );
     }
-  } // isStruct
+  } // isStructFindVariableContentMatch
 
-  void MatchStructContentBefore( Struct* str, int startPosition, int stopNode ){
+  void matchStructContentBefore( Struct* str, int startPosition, int stopNode ){
     for( int i = 0; i < str->arity() ; i++ ){
       Variable * isVarInStr = dynamic_cast<Variable *>(str->args(i));
       Struct * isStrInStr = dynamic_cast<Struct *>(str->args(i));
       if ( isVarInStr ) MatchBefore( isVarInStr, startPosition, stopNode );
-      if ( isStrInStr ) MatchStructContentBefore( isStrInStr, startPosition, stopNode );
+      if ( isStrInStr ) matchStructContentBefore( isStrInStr, startPosition, stopNode );
     } // for
-  } // MatchStructContentBefore()
+  } // matchStructContentBefore()
 
-  bool MatchBefore( Variable* var, int startPosition, int stopNode ){  /// 88888
+  bool MatchBefore( Variable* var, int startPosition, int stopNode ){
     for( int i = startPosition; i < stopNode; i++ ){
       if( allStatment[i]->payload == TERM ){
         if( allStatment[i]->term->symbol() == var->symbol() ) {
           if( !var->match( *(allStatment[i]->term) ) ) return false;
         }
         else {
-          Struct * isStr = dynamic_cast<Struct *>(allStatment[i]->term);  /// =====
+          Struct * isStr = dynamic_cast<Struct *>(allStatment[i]->term);
           if( isStr )
-            isStruct( isStr, var );
+            isStructFindVariableContentMatch( isStr, var );
         } // else
       } // if is term
     } // for
@@ -63,7 +63,7 @@ public:
   } // MatchBefore()
 
 
-  bool isVarThenMatchBefore( Node* node, int startPosition, int stopNode ) {
+  bool isVarOrStructThenMatchBefore( Node* node, int startPosition, int stopNode ) {
     Variable * isVar_left = dynamic_cast<Variable *>(node->left->term);
     if ( isVar_left )
       if(!MatchBefore( isVar_left, startPosition, stopNode )) return false;
@@ -73,10 +73,10 @@ public:
 
     Struct * isStr_left = dynamic_cast<Struct *>(node->left->term);
     Struct * isStr_right = dynamic_cast<Struct *>(node->right->term);
-    if ( isStr_left ) MatchStructContentBefore( isStr_left, startPosition, stopNode );
-    if ( isStr_right ) MatchStructContentBefore( isStr_right, startPosition,stopNode );
+    if ( isStr_left ) matchStructContentBefore( isStr_left, startPosition, stopNode );
+    if ( isStr_right ) matchStructContentBefore( isStr_right, startPosition,stopNode );
     return true;
-  } // isVarThenMatchBefore()
+  } // isVarOrStructThenMatchBefore()
 
   bool matchNode( Node *node ) {
     Term* leftnode = node->left->term;
@@ -90,7 +90,7 @@ public:
     int startPosition = 0;
     for( int i = 0; i < allStatment.size(); i++ ) {
       if ( allStatment[i]->payload == EQUALITY ) {
-         if( followOp == COMMA ) isVarThenMatchBefore( allStatment[i], startPosition, i-1 );
+         if( followOp == COMMA ) isVarOrStructThenMatchBefore( allStatment[i], startPosition, i-1 );
          if( !matchNode( allStatment[i] ) ) return false ;
       } // if
       else if( allStatment[i]->payload != TERM ) {
