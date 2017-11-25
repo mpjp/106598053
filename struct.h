@@ -24,8 +24,7 @@ public:
   int arity(){
     return _args.size();
   }
-
-
+  
   string symbol() const{
     if( _args.size() == 0 ) return _name.symbol() + "()";
     string ret =_name.symbol() + "(";

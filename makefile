@@ -1,10 +1,10 @@
-all: hw5
+all: hw6
 
-hw5: MainParser.o Atom.o
+hw6: MainParser.o Atom.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw5 MainParser.o Atom.o -lgtest
+	g++ -o hw6 MainParser.o Atom.o -lgtest
 else
-	g++ -o hw5 MainParser.o Atom.o -lgtest -lpthread
+	g++ -o hw6 MainParser.o Atom.o -lgtest -lpthread
 endif
 
 
@@ -23,5 +23,5 @@ clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o hw5
+	rm -f *.o hw6
 endif
