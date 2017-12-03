@@ -15,9 +15,9 @@ public:
   Struct(Atom const & name, std::vector<Term *> args):_name(name), _args(args) {
   }
 
-  Iterator * createIterator();
-  Iterator * createBFSIterator();
-  Iterator * createDFSIterator();
+  Iterator<Term*> * createIterator();
+  Iterator<Term*> * createBFSIterator();
+  Iterator<Term*> * createDFSIterator();
 
   Term * args(int index) {
     return _args[index];

@@ -14,9 +14,9 @@ public:
   List () {}
   List (vector<Term *> const & elements):_elements(elements){}
 
-  Iterator * createIterator();
-  Iterator * createBFSIterator();
-  Iterator * createDFSIterator();
+  Iterator<Term*> * createIterator();
+  Iterator<Term*> * createBFSIterator();
+  Iterator<Term*> * createDFSIterator();
 
   Term * args(int index) {
     return _elements[index];

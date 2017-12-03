@@ -6,6 +6,7 @@
 #include<iostream>
 using namespace std;
 
+template< class T >
 class Iterator {
 public:
   virtual void first() = 0;
@@ -15,18 +16,17 @@ public:
 };
 
 template<class T>
-class DFSIterator :public Iterator{
+class DFSIterator :public Iterator<T>{
 public:
-  DFSIterator( T *temp ):_index(0), _temp( temp ) {
-    Iterator* it = temp->createIterator();
-    // allTerm.push_back( temp );
+  DFSIterator( Term* temp ):_index(0), _temp( temp ) {
+    Iterator<T>* it = temp->createIterator();
     it->first();
     dfsVisit( it );
   }
   void first(){
     _index = 0;
   }
-  Term * currentItem() const{
+  Term* currentItem() const{
     return allTerm[_index];
   }
   bool isDone() const{
@@ -35,8 +35,8 @@ public:
   void next(){
     _index++;
   }
-  void dfsVisit( Iterator* it ){
-    Iterator *itemp;
+  void dfsVisit( Iterator<T>* it ){
+    Iterator<T> *itemp;
     while( !it->isDone() ){
       Term* tterm = it->currentItem();
       itemp = tterm->createIterator();
@@ -47,17 +47,16 @@ public:
   }
 private:
   int _index;
-  vector<Iterator*> allIterator;
   vector<Term*> allTerm;
-  T* _temp;
+  Term* _temp;
 };
 
 
 template<class T>
-class BFSIterator :public Iterator{
+class BFSIterator :public Iterator<T>{
 public:
-  BFSIterator(T * temp):_index(0), _temp(temp), currIterator(0), isdone(false) {
-     Iterator* it = _temp->createIterator();
+  BFSIterator(Term * temp):_index(0), _temp(temp), currIterator(0), isdone(false) {
+     Iterator<T>* it = _temp->createIterator();
      currTerm = it->currentItem();
      allIterator.push_back( it );
   }
@@ -71,7 +70,7 @@ public:
     return isdone;
   }
   void next() {
-    Iterator *it = allIterator[currIterator];
+    Iterator<T> *it = allIterator[currIterator];
     it->first();
     _index++;
     for( int i = 0; i < _index; i++ ) it->next();
@@ -79,7 +78,7 @@ public:
     // _index++;
 
     if( !it->isDone()) {
-      Iterator *tempit = (it->currentItem())->createIterator();
+      Iterator<T> *tempit = (it->currentItem())->createIterator();
       if( !tempit->isDone() ) {
         allIterator.push_back( tempit );
       }
@@ -89,7 +88,7 @@ public:
       if( currIterator == allIterator.size()-1 ) isdone = true;
       else {
         currIterator++;
-        Iterator *it2 = allIterator[currIterator];
+        Iterator<T> *it2 = allIterator[currIterator];
         it2->first();
         _index = 0;
         currTerm = it2->currentItem();
@@ -100,20 +99,20 @@ public:
 
 private:
   int _index;
-  vector<Iterator*> allIterator;
+  vector<Iterator<T>*> allIterator;
   int currIterator;
   Term* currTerm;
   bool isdone;
-  T* _temp;
+  Term* _temp;
 };
 
-
-class NullIterator :public Iterator{
+template<class T>
+class NullIterator :public Iterator<T>{
 public:
-  NullIterator(Term *n){}
+  NullIterator(Term* n){}
   void first(){}
   void next(){}
-  Term * currentItem() const{
+  Term* currentItem() const{
       return nullptr;
   }
   bool isDone() const{
@@ -122,7 +121,8 @@ public:
 
 };
 
-class StructIterator :public Iterator {
+template<class T>
+class StructIterator :public Iterator<T> {
 public:
   friend class Struct;
   void first() {
@@ -146,7 +146,8 @@ private:
   Struct* _s;
 };
 
-class ListIterator :public Iterator {
+template<class T>
+class ListIterator :public Iterator<T> {
 public:
   ListIterator(List *list): _index(0), _list(list) {}
 
