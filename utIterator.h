@@ -7,7 +7,7 @@
 #include "list.h"
 #include "iterator.h"
 #include "number.h"
-// 
+//
 // TEST(iterator, first) {
 //     Number one(1);
 //     Variable X("X");
@@ -183,136 +183,140 @@
 //   ASSERT_TRUE( it->isDone() );
 // }
 //
-// TEST( iterator, bfsList ){
-//   Number num1(1);
-//   Number num2(2);
-//   Number num3(3);
-//   List list( {&num1, &num2, &num3} );  // [1,2,3]
-//   Iterator *it = list.createBFSIterator();
-//   it->first();
-//   // ASSERT_EQ( "[1, 2, 3]", it->currentItem()->symbol() );
-//   // it->next();
-//   ASSERT_EQ( "1", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "2", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "3", it->currentItem()->symbol() );
-//
-//   ASSERT_FALSE( it->isDone() );
-//   it->next();
-//   ASSERT_TRUE( it->isDone() );
-// }
-//
-// TEST( iterator, nested_bfs_List ){
-//   Number num1(1);
-//   Number num2(2);
-//   Number num3(3);
-//   Number num4(4);
-//   List list2( {&num2, &num3, &num4} );
-//   List list( {&num1, &list2} );  //[1, [2, 3]]
-//   Iterator *it = list.createBFSIterator();
-//   it->first();
-//   // ASSERT_EQ( "[1, [2, 3]]", it->currentItem()->symbol() );
-//   // it->next();
-//   ASSERT_EQ( "1", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "[2, 3, 4]", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "2", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "3", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "4", it->currentItem()->symbol() );
-//
-//   ASSERT_FALSE( it->isDone() );
-//   it->next();
-//   ASSERT_TRUE( it->isDone() );
-// }
-//
-//
-// TEST( iterator, nested_complext_bfsList ){
-//   Number num1(1);
-//   Number num2(2);
-//   Number num3(3);
-//   Number num4(4);
-//   Number num5(5);
-//   Number num6(6);
-//   List list4( {&num6} );
-//   List list3( {&num4, &num5} );
-//   List list2( {&num2, &num3, &list4} );
-//   List list( {&num1, &list2, &list3} );
-//   Iterator *it = list.createBFSIterator();
-//   it->first();
-//   // ASSERT_EQ( "[1, [2, 3, [6]], [4, 5]]", it->currentItem()->symbol() );
-//   // it->next();
-//   ASSERT_EQ( "1", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "[2, 3, [6]]", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "[4, 5]", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "2", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "3", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "[6]", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "4", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "5", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "6", it->currentItem()->symbol() );
-//
-//
-//   ASSERT_FALSE( it->isDone() );
-//   it->next();
-//   ASSERT_TRUE( it->isDone() );
-// }
-//
-// TEST( iterator, dfs ){
-//   Number num1(1);
-//   Number num2(2);
-//   Number num3(3);
-//   Number num4(4);
-//   Number num5(5);
-//   List list3( {&num4, &num5} );  //[4,5]
-//   List list2( {&num2, &num3, &list3} );  //[2,3,[4,5]]
-//   List list( {&list2, &num1} );  //[[2,3,[4,5]],1]
-//   Iterator *it = list.createDFSIterator();
-//   it->first();
-//   // ASSERT_EQ( "[[2, 3, [4, 5]], 1]", it->currentItem()->symbol() );
-//   // it->next();
-//   EXPECT_EQ( "[2, 3, [4, 5]]", it->currentItem()->symbol() );
-//   it->next();
-//   EXPECT_EQ( "2", it->currentItem()->symbol() );
-//   it->next();
-//   EXPECT_EQ( "3", it->currentItem()->symbol() );
-//   it->next();
-//   EXPECT_EQ( "[4, 5]", it->currentItem()->symbol() );
-//   it->next();
-//   EXPECT_EQ( "4", it->currentItem()->symbol() );
-//   it->next();
-//   EXPECT_EQ( "5", it->currentItem()->symbol() );
-//   it->next();
-//   EXPECT_EQ( "1", it->currentItem()->symbol() );
-//   ASSERT_FALSE( it->isDone() );
-//   it->next();
-//   ASSERT_TRUE( it->isDone() );
-// }
-//
-// TEST( iterator, bfsStruct ){
-//   Number num1(1);
-//   Number num2(2);
-//   Struct s( Atom( "s1" ), { &num1, &num2} );
-//   Iterator *it = s.createBFSIterator();
-//   it->first();
-//   ASSERT_EQ( "1", it->currentItem()->symbol() );
-//   it->next();
-//   ASSERT_EQ( "2", it->currentItem()->symbol() );
-//   ASSERT_FALSE( it->isDone() );
-//   it->next();
-//   ASSERT_TRUE( it->isDone() );
-// }
+TEST( iterator, bfsList ){
+  Number num1(1);
+  Number num2(2);
+  Number num3(3);
+  List list( {&num1, &num2, &num3} );  // [1,2,3]
+  Iterator<Term*> *it = list.createBFSIterator();
+  // it->first();
+  // // ASSERT_EQ( "[1, 2, 3]", it->currentItem()->symbol() );
+  // // it->next();
+  // ASSERT_EQ( "1", it->currentItem()->symbol() );
+  // it->next();
+  // ASSERT_EQ( "2", it->currentItem()->symbol() );
+  // it->next();
+  // ASSERT_EQ( "3", it->currentItem()->symbol() );
+  //
+  // ASSERT_FALSE( it->isDone() );
+  // it->next();
+  // ASSERT_TRUE( it->isDone() );
+}
+
+TEST( iterator, nested_bfs_List ){
+  Number num1(1);
+  Number num2(2);
+  Number num3(3);
+  Number num4(4);
+  Number num5(5);
+  Number num6(6);
+  List list3( {&num5, &num6} );
+  List list2( {&num2, &num3, &list3, &num4} );
+  List list( {&num1, &list2} );  //[1, [2, 3, [5,6], 4]]
+  Iterator<Term*> *it = list.createBFSIterator();
+  it->first();
+  ASSERT_EQ( "1", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "[2, 3, [5, 6], 4]", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "2", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "3", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "[5, 6]", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "4", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "5", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "6", it->currentItem()->symbol() );
+  ASSERT_FALSE( it->isDone() );
+  it->next();
+  ASSERT_TRUE( it->isDone() );
+}
+
+
+TEST( iterator, nested_complext_bfsList ){
+  Number num1(1);
+  Number num2(2);
+  Number num3(3);
+  Number num4(4);
+  Number num5(5);
+  Number num6(6);
+  List list4( {&num6} );
+  List list3( {&num4, &num5} );
+  List list2( {&num2, &num3, &list4} );
+  List list( {&num1, &list2, &list3} );
+  Iterator<Term*> *it = list.createBFSIterator();
+  it->first();
+  ASSERT_EQ( "1", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "[2, 3, [6]]", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "[4, 5]", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "2", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "3", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "[6]", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "4", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "5", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "6", it->currentItem()->symbol() );
+
+
+  ASSERT_FALSE( it->isDone() );
+  it->next();
+  ASSERT_TRUE( it->isDone() );
+}
+
+TEST( iterator, dfs ){
+  Number num1(1);
+  Number num2(2);
+  Number num3(3);
+  Number num4(4);
+  Number num5(5);
+  List list3( {&num4, &num5} );  //[4,5]
+  List list2( {&num2, &num3, &list3} );  //[2,3,[4,5]]
+  List list( {&list2, &num1} );  //[[2,3,[4,5]],1]
+  Iterator<Term*> *it = list.createDFSIterator();
+  it->first();
+  // ASSERT_EQ( "[[2, 3, [4, 5]], 1]", it->currentItem()->symbol() );
+  // it->next();
+  EXPECT_EQ( "[2, 3, [4, 5]]", it->currentItem()->symbol() );
+  it->next();
+  EXPECT_EQ( "2", it->currentItem()->symbol() );
+  it->next();
+  EXPECT_EQ( "3", it->currentItem()->symbol() );
+  it->next();
+  EXPECT_EQ( "[4, 5]", it->currentItem()->symbol() );
+  it->next();
+  EXPECT_EQ( "4", it->currentItem()->symbol() );
+  it->next();
+  EXPECT_EQ( "5", it->currentItem()->symbol() );
+  it->next();
+  EXPECT_EQ( "1", it->currentItem()->symbol() );
+  ASSERT_FALSE( it->isDone() );
+  it->next();
+  ASSERT_TRUE( it->isDone() );
+}
+
+TEST( iterator, bfsStruct ){
+  Number num1(1);
+  Number num2(2);
+  Struct s( Atom( "s1" ), { &num1, &num2} );
+  Iterator<Term*> *it = s.createBFSIterator();
+  it->first();
+  ASSERT_EQ( "1", it->currentItem()->symbol() );
+  it->next();
+  ASSERT_EQ( "2", it->currentItem()->symbol() );
+  ASSERT_FALSE( it->isDone() );
+  it->next();
+  ASSERT_TRUE( it->isDone() );
+}
 
 TEST( iterator, struct_bb ){
   Number num1(1);

@@ -5,6 +5,7 @@
 #include "list.h"
 #include<iostream>
 using namespace std;
+#include <list>
 
 template< class T >
 class Iterator {
@@ -55,55 +56,55 @@ private:
 template<class T>
 class BFSIterator :public Iterator<T>{
 public:
-  BFSIterator(Term * temp):_index(0), _temp(temp), currIterator(0), isdone(false) {
-     Iterator<T>* it = _temp->createIterator();
-     currTerm = it->currentItem();
+  BFSIterator(Term * temp):_index(0) {
+     Iterator<T>* it = temp->createIterator();
      allIterator.push_back( it );
+     it->first();
+     bsf();
   }
   void first() {
     _index = 0;
   }
   Term* currentItem() const {
-    return currTerm;
-  }
-  bool isDone() const {
-    return isdone;
+    return allTerm[_index];
   }
   void next() {
-    Iterator<T> *it = allIterator[currIterator];
-    it->first();
     _index++;
-    for( int i = 0; i < _index; i++ ) it->next();
-    currTerm = it->currentItem();
-    // _index++;
+  }
+  bool isDone() const {
+    return _index >= allTerm.size();
+  }
 
-    if( !it->isDone()) {
-      Iterator<T> *tempit = (it->currentItem())->createIterator();
-      if( !tempit->isDone() ) {
-        allIterator.push_back( tempit );
-      }
-    }
+  void bsf(){
+    while( !allIterator.empty() ){
+      Iterator<T> *it = allIterator.front();
+      Term* tterm = it->currentItem();
+      allTerm.push_back( tterm );
+      it->next();
+      while( !it->isDone() ){
+        tterm = it->currentItem();
+        allTerm.push_back( tterm );
+        Iterator<T> *childIt = tterm->createIterator();
+        if( !childIt->isDone() ) {
+          allIterator.push_back( childIt );
+        }
+        it->next();
+      } // while
+      allIterator.pop_front();
+    } // while
+  }
 
-    if( it->isDone() ) {
-      if( currIterator == allIterator.size()-1 ) isdone = true;
-      else {
-        currIterator++;
-        Iterator<T> *it2 = allIterator[currIterator];
-        it2->first();
-        _index = 0;
-        currTerm = it2->currentItem();
-      } // else get next it
-    } // else if
+  void print(){
+    for( int i = 0; i < allTerm.size(); i++ )
+      cout << allTerm[i]->symbol();
   }
 
 
 private:
   int _index;
-  vector<Iterator<T>*> allIterator;
-  int currIterator;
+  list<Iterator<T>*> allIterator;
+  vector<Term*> allTerm;
   Term* currTerm;
-  bool isdone;
-  Term* _temp;
 };
 
 template<class T>
