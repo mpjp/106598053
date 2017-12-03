@@ -78,13 +78,12 @@ public:
   void bsf(){
     while( !allIterator.empty() ){
       Iterator<T> *it = allIterator.front();
-      Term* tterm = it->currentItem();
-      allTerm.push_back( tterm );
-      it->next();
+      it->first();
       while( !it->isDone() ){
-        tterm = it->currentItem();
+        Term* tterm = it->currentItem();
         allTerm.push_back( tterm );
         Iterator<T> *childIt = tterm->createIterator();
+        childIt->first();
         if( !childIt->isDone() ) {
           allIterator.push_back( childIt );
         }
@@ -141,8 +140,8 @@ public:
   void next() {
     _index++;
   }
-private:
   StructIterator(Struct *s): _index(0), _s(s) {}
+private:
   int _index;
   Struct* _s;
 };

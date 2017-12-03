@@ -22,7 +22,7 @@ Term.o: Term.cpp term.h
 # 		g++ -std=gnu++0x -c MainScanner.cpp
 # MainParser.o: MainParser.cpp parser.h atom.h
 # 		g++ -std=gnu++0x -c MainParser.cpp
-MainIterator.o: MainIterator.cpp utIterator.h
+MainIterator.o: MainIterator.cpp utIterator.h Atom.o
 		g++ -std=gnu++0x -c MainIterator.cpp
 
 
