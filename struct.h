@@ -4,14 +4,20 @@
 #include "atom.h"
 #include <vector>
 #include <string>
+#include "variable.h"
+#include "list.h"
 
 using std::string;
-
+// class Iterator;
 class Struct:public Term
 {
 public:
   Struct(Atom const & name, std::vector<Term *> args):_name(name), _args(args) {
   }
+
+  Iterator * createIterator();
+  Iterator * createBFSIterator();
+  Iterator * createDFSIterator();
 
   Term * args(int index) {
     return _args[index];
@@ -24,7 +30,7 @@ public:
   int arity(){
     return _args.size();
   }
-  
+
   string symbol() const{
     if( _args.size() == 0 ) return _name.symbol() + "()";
     string ret =_name.symbol() + "(";

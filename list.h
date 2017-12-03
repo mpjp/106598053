@@ -1,46 +1,46 @@
 #ifndef LIST_H
 #define LIST_H
-
 #include <string>
 #include <vector>
-using std::string;
 #include "term.h"
 #include "variable.h"
-// using namespace std;
 using std::vector;
+using std::string;
 #include <stdexcept>
 
+// class Iterator;
 class List : public Term {
 public:
   List () {}
   List (vector<Term *> const & elements):_elements(elements){}
+
+  Iterator * createIterator();
+  Iterator * createBFSIterator();
+  Iterator * createDFSIterator();
+
+  Term * args(int index) {
+    return _elements[index];
+  }
+
+  int arity() const {return _elements.size();}
+
   Term * head() {
-    try {
-      if( _elements.size() <= 0 )  //throw "Accessing head in an empty list";
-        throw std::string("Accessing head in an empty list");
-      else
-        return _elements[0];
-    }
-    catch (const char* message) {
-      std::cout << message << std::endl;
-    }
+    if( _elements.size() <= 0 )  //throw "Accessing head in an empty list";
+      throw std::string("Accessing head in an empty list");
+    else
+      return _elements[0];
   } // head()
 
   List * tail() {
-    try{
-      if( _elements.size() <= 0 )
-        throw std::string("Accessing tail in an empty list"); // std::invalid_argument
-      else {
-        std::vector<Term*> v;
-        for (std::vector<Term*>::iterator it = _elements.begin()+1 ; it != _elements.end(); ++it)
+    if( _elements.size() <= 0 )
+      throw std::string("Accessing tail in an empty list"); // std::invalid_argument
+    else {
+      std::vector<Term*> v;
+      for (std::vector<Term*>::iterator it = _elements.begin()+1 ; it != _elements.end(); ++it)
         v.push_back(*it);
         List *list = new List(v);
         return list;
-      } // else
-    } // try
-    catch (const char* message) {
-      std::cout << message << std::endl;
-    }
+    } // else
   } // tail()
 
 public:

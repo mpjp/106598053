@@ -418,4 +418,17 @@ TEST_F(ParserTest, MatchingSuccess) {
   EXPECT_EQ("s(s(2))", terms[4]->value());
 }
 
+
+TEST_F(ParserTest, MatchingDifferent) {
+  Scanner scanner("X=s(Y), Z = t(Y), Y = 1.");
+  Parser parser(scanner);
+  parser.matchings();
+  vector<Term *> terms = parser.getTerms();
+  Node * et = parser.expressionTree();
+  EXPECT_TRUE(et->evaluate());
+
+  EXPECT_EQ("s(1)", terms[0]->value());
+  EXPECT_EQ("t(1)", terms[2]->value());
+}
+
 #endif
