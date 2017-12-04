@@ -5,8 +5,8 @@
 #include <sstream>
 using std::string;
 
-template<class Item>
-class Iterator;
+template<class T> class Iterator;
+
 class Term{
 public:
   virtual string symbol() const {return _symbol;}

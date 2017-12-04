@@ -4,26 +4,24 @@
 #include "struct.h"
 #include "list.h"
 #include<iostream>
-using namespace std;
 #include <list>
+
+using namespace std;
 
 template< class T >
 class Iterator {
 public:
   virtual void first() = 0;
   virtual void next() = 0;
-  virtual Term* currentItem() const = 0;
+  virtual T currentItem() const = 0;
   virtual bool isDone() const = 0;
 };
 
 template<class T>
 class DFSIterator :public Iterator<T>{
 public:
-  DFSIterator( Term* temp ):_index(0), _temp( temp ) {
-    Iterator<T>* it = temp->createIterator();
-    it->first();
-    dfsVisit( it );
-  }
+  friend class Struct;
+  friend class List;
   void first(){
     _index = 0;
   }
@@ -44,9 +42,14 @@ public:
       allTerm.push_back( tterm );
       it->next();
       if( !itemp->isDone() ) dfsVisit( itemp );
-    }
+    } // while
   }
 private:
+  DFSIterator( T temp ):_index(0), _temp( temp ) {
+    Iterator<T>* it = temp->createIterator();
+    it->first();
+    dfsVisit( it );
+  }
   int _index;
   vector<Term*> allTerm;
   Term* _temp;
@@ -56,12 +59,9 @@ private:
 template<class T>
 class BFSIterator :public Iterator<T>{
 public:
-  BFSIterator(Term * temp):_index(0) {
-     Iterator<T>* it = temp->createIterator();
-     allIterator.push_back( it );
-     it->first();
-     bsf();
-  }
+  friend class Struct;
+  friend class List;
+
   void first() {
     _index = 0;
   }
@@ -80,7 +80,7 @@ public:
       Iterator<T> *it = allIterator.front();
       it->first();
       while( !it->isDone() ){
-        Term* tterm = it->currentItem();
+        Term* tterm = it->currentItem();  //Term*
         allTerm.push_back( tterm );
         Iterator<T> *childIt = tterm->createIterator();
         childIt->first();
@@ -93,13 +93,13 @@ public:
     } // while
   }
 
-  void print(){
-    for( int i = 0; i < allTerm.size(); i++ )
-      cout << allTerm[i]->symbol();
-  }
-
-
 private:
+  BFSIterator(T temp):_index(0) {
+     Iterator<T>* it = temp->createIterator();
+     allIterator.push_back( it );
+     it->first();
+     bsf();
+  }
   int _index;
   list<Iterator<T>*> allIterator;
   vector<Term*> allTerm;
@@ -109,7 +109,7 @@ private:
 template<class T>
 class NullIterator :public Iterator<T>{
 public:
-  NullIterator(Term* n){}
+  NullIterator(T n){}
   void first(){}
   void next(){}
   Term* currentItem() const{
@@ -140,8 +140,8 @@ public:
   void next() {
     _index++;
   }
-  StructIterator(Struct *s): _index(0), _s(s) {}
 private:
+  StructIterator(Struct* s): _index(0), _s(s) {}
   int _index;
   Struct* _s;
 };
@@ -149,7 +149,7 @@ private:
 template<class T>
 class ListIterator :public Iterator<T> {
 public:
-  ListIterator(List *list): _index(0), _list(list) {}
+  friend class List;
 
   void first() {
     _index = 0;
@@ -168,6 +168,7 @@ public:
   }
 
 private:
+  ListIterator(List *list): _index(0), _list(list) {}
   int _index;
   List* _list;
 };
