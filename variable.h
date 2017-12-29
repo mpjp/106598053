@@ -26,5 +26,5 @@ public:
 private:
   Term * _inst;
 };
-
+//#
 #endif
