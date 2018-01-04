@@ -4,72 +4,61 @@
 #include "atom.h"
 #include <vector>
 #include <string>
-#include "variable.h"
-#include "list.h"
 
 using std::string;
-// class Iterator;
-class Struct:public Term
-{
+
+class Struct: public Term {
 public:
-  Struct(Atom const & name, std::vector<Term *> args):_name(name), _args(args) {
+  Struct(Atom name, std::vector<Term *> args): _name(name), _args(args){
   }
 
-  Iterator<Term*> * createIterator();
-  Iterator<Term*> * createBFSIterator();
-  Iterator<Term*> * createDFSIterator();
+
+  bool match(Term &term) {
+    if (term.getVariable() != nullptr) {
+      return term.match(*this);
+    }
+    Struct *s = term.getStruct();
+    if (s == nullptr || s->arity() != arity() || !_name.match(s->_name))
+      return false;
+
+    for (int i = 0; i < _args.size(); i++)
+      if (!s->_args[i]->match(*_args[i]))
+        return false;
+    return true;
+  }
 
   Term * args(int index) {
     return _args[index];
   }
 
-  Atom const & name() {
+  Atom & name() {
     return _name;
   }
 
-  int arity(){
-    return _args.size();
-  }
-
-  string symbol() const{
-    if( _args.size() == 0 ) return _name.symbol() + "()";
-    string ret =_name.symbol() + "(";
-    for(int i = 0; i < _args.size() - 1 ; i++){
-      ret += _args[i]-> symbol() + ", ";
-    }
-    ret += _args[_args.size()-1]-> symbol() + ")";
-    return  ret;
+  string symbol() const {
+      string ret = _name.symbol() + "(";
+      for (int i = 0; i < _args.size(); i++)
+        ret += ((i > 0) ?  ", "  : "") + _args[i]->symbol();
+      return ret + ")";
   }
 
   string value() const {
-    string ret =_name.value() + "(";
-    for(int i = 0; i < _args.size() - 1 ; i++){
-      ret += _args[i]-> value() + ", ";
-    }
-    ret += _args[_args.size()-1]-> value() + ")";
-    return  ret;
+    string ret = _name.symbol() + "(";
+    for (int i = 0; i < _args.size(); i++)
+      ret += ((i > 0) ?  ", "  : "") + _args[i]->value();
+    return ret + ")";
   }
 
-  bool match(Term &term){
-    Struct * ps = dynamic_cast<Struct *>(&term);
-    if (ps){
-      if (!_name.match(ps->_name))
-        return false;
-      if(_args.size()!= ps->_args.size())
-        return false;
-      for(int i=0;i<_args.size();i++){
-        if(_args[i]->symbol() != ps->_args[i]->symbol()){
-          Variable * v1 = dynamic_cast<Variable *>(_args[i]);
-          Variable * v2 = dynamic_cast<Variable *>(ps->_args[i]);
-          if( v1 || v2 ) return true;
-          return false;
-        }
-      }
-      return true;
-    }
-    return false;
+  int arity() const {
+    return _args.size();
   }
-private:
+
+  Struct* getStruct() {
+    return this;
+  }
+
+  Iterator * createIterator();
+protected:
   Atom _name;
   std::vector<Term *> _args;
 };

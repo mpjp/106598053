@@ -70,7 +70,6 @@ TEST(Struct, match5)
   std::vector<Term *> v = {&tom, &chaseMouse};
   Struct hobby(Atom("hobby"), v);
   EXPECT_FALSE(hobby.match(tom));
-  EXPECT_EQ( 2, hobby.arity() );
 }
 
 // When Struct s contains a Variable X
