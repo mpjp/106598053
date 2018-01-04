@@ -1,6 +1,6 @@
 # all: utAtom utVariable utScanner utIterator shell
 
-all: hw8
+all: hw8 shell
 
 # hw8: mainScanner.o atom.o list.o struct.o scanner.h utScanner.h utParser.h parser.h
 # 	g++ -o hw8 mainScanner.o atom.o list.o struct.o -lgtest -lpthread
@@ -14,11 +14,7 @@ else
 	g++ -o hw8 mainScanner.o atom.o list.o struct.o -lgtest -lpthread
 endif
 
-# ifeq (${OS}, Windows_NT)
-# 	g++ -o shell shell.o atom.o list.o struct.o -lgtest
-# else
-# 	g++ -o shell shell shell.o atom.o list.o struct.o -lgtest -lpthread
-# endif
+
 
 mainIterator.o: mainIterator.cpp utIterator.h
 	g++ -std=gnu++0x -c mainIterator.cpp
@@ -50,10 +46,17 @@ mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h
 utIterator: mainIterator.o atom.o list.o struct.o iterator.h utIterator.h
 	g++ -o utIterator mainIterator.o atom.o list.o struct.o -lgtest -lpthread
 
-shell: shell.o atom.o list.o struct.o parser.h utParser.h
-	g++ -o shell shell.o atom.o list.o struct.o -lgtest -lpthread
+# shell: shell.o atom.o list.o struct.o parser.h utParser.h
+# 	g++ -o shell shell.o atom.o list.o struct.o -lgtest -lpthread
 shell.o:shell.cpp
 	g++ -std=gnu++0x -c shell.cpp
+
+shell: shell.o atom.o list.o struct.o parser.h
+ifeq (${OS}, Windows_NT)
+	g++ -o shell shell.o atom.o list.o struct.o -lgtest
+else
+	g++ -o shell shell.o atom.o list.o struct.o -lgtest -lpthread
+endif
 
 # clean:
 # 	rm -f *.o utAtom utVariable utScanner shell hw8
@@ -66,5 +69,5 @@ clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o hw8
+	rm -f *.o hw8 shell
 endif
