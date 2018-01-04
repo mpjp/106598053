@@ -1,10 +1,10 @@
-all: hw7
+all: hw8
 
-hw7: MainIterator.o Atom.o Struct.o Term.o List.o
+hw8: MainIterator.o Atom.o Struct.o Term.o List.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw7 MainIterator.o Atom.o Struct.o Term.o List.o -lgtest
+	g++ -o hw8 MainIterator.o Atom.o Struct.o Term.o List.o -lgtest
 else
-	g++ -o hw7 MainIterator.o Atom.o Struct.o Term.o List.o -lgtest -lpthread
+	g++ -o hw8 MainIterator.o Atom.o Struct.o Term.o List.o -lgtest -lpthread
 endif
 
 List.o :List.cpp list.h
@@ -32,5 +32,5 @@ clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o hw7
+	rm -f *.o hw8
 endif
