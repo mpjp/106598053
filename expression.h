@@ -205,7 +205,7 @@ TEST(Shell, conjunctionMatching_duplicateExp) {
     p.buildExpression();
     string result = showResult( p.getExpressionTree() );
 
-    //ASSERT_EQ("Y = 1, X = 2.", result);
+    ASSERT_EQ("Y = 1, X = 2.", result);
   } catch (std::string &msg) {
     FAIL() << msg;
   }
