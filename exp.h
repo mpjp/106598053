@@ -91,12 +91,12 @@ public:
 
   string result(){
    string res = "";
-
    res += _left->result();
-   // cout << _left->result();
-   // cout << " , ";
+    
+   std::size_t found = res.find(_right->result());
    if ( _left->result() != _right->result() ) {
-     if ( _left->result() == "" ) res += _right->result();
+     if ( found !=std::string::npos ) ;
+     else if ( _left->result() == "" ) res += _right->result();
      else if ( _right->result() != "" ) res += ", " + _right->result();
    }
 
@@ -116,7 +116,6 @@ public:
   }
 
   bool evaluate() {
-    //cout << "(DisVar!)";
     _leftEval = _left->evaluate();
     _rightEval = _right->evaluate();
     return _leftEval || _rightEval ;
@@ -124,20 +123,15 @@ public:
 
   string result(){
    string res = "";
-   //cout << "DisRESULT\n" ;
 
    if ( _leftEval ) res += _left->result();
    if ( _rightEval && (_left->result() !=_right->result()) ) {
-    // if ( _right->result() == "" ) res += _right->result();
     if ( _right->result() == "" ) res += "; true";
     else {
       if ( !_leftEval) res += _right->result();
       else res += "; " + _right->result();
     } //if
    }
-
-   // if ( _leftEval ) cout << _left->result();
-   // if ( _rightEval && (_left->result() !=_right->result()) ) cout << " ; " + _right->result();
 
 
    return res;
