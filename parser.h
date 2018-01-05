@@ -163,7 +163,8 @@ public:
     }
     else {
       if ( _currtemp == '='|| _currtemp == '.') {
-        throw string( left->symbol() + " does never get assignment");
+        if( left == nullptr ) throw string(" does never get assignment");
+        else throw string( left->symbol() + " does never get assignment");
       }
       // else if ( pp == nullptr ) cout << "@@";
       else {
